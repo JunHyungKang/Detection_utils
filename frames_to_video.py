@@ -13,6 +13,7 @@ def parse_opt():
     parser.add_argument('--img_path', type=str)
     parser.add_argument('--save_path', type=str)
     parser.add_argument('--save_name', type=str)
+    parser.add_argument('--save_format', type=str)
     parser.add_argument('--fps', type=int)
     opt = parser.parse_args()
     return opt
@@ -26,7 +27,10 @@ def main(opt):
     height, width, layers = frame.shape
 
     video_name = opt.save_name
-    codec = 'DIVX'
+    if opt.save_format == 'avi':
+        codec = 'DIVX'  # .avi
+    elif opt.save_format in ['mp4', 'mov']:
+        codec = 'mp4v'  # .mp4
     fourcc = cv2.VideoWriter_fourcc(*codec)
     fps = 3
 
